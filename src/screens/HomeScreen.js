@@ -1,146 +1,262 @@
 // src/screens/HomeScreen.js
 
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { spacing } from '../constants/spacing';
 import { useSessionContext } from '../contexts/SessionContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const HomeScreen = ({ navigation }) => {
-  // Деструктурируем данные и методы из хука useSession
-  // Хук возвращает объект, и мы извлекаем из него только то что нам нужно на этом экране
-  const { sessionStatus, startSession } = useSessionContext();
+  const { theme, isDark, toggleTheme } = useTheme();
+  const { startSession } = useSessionContext();
 
-  // Функция которая вызывается когда пользователь нажимает на кнопку выбора длительности
-  // Она принимает длительность в минутах, конвертирует в секунды, и запускает сессию
   const handleStartSession = (minutes) => {
-    // Конвертируем минуты в секунды умножая на 60
     const seconds = minutes * 60;
-
-    // Вызываем функцию запуска сессии из хука передавая длительность в секундах
     startSession(seconds);
-
-    // Автоматически переключаем пользователя на экран активной сессии
-    // navigation это проп который React Navigation автоматически передает всем экранам
-    // Метод navigate позволяет перейти на другой экран по его имени
     navigation.navigate('Session');
   };
 
+  // Временные данные статистики
+  const weeklyStats = {
+    sessions: 123,
+    totalTime: '8 h 30 min',
+  };
+
   return (
-    <View style={styles.container}>
-      {/* Заголовок приложения */}
-      <Text style={styles.title}>Digital Detox Buddy</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
 
-      {/* Подзаголовок с инструкцией */}
-      <Text style={styles.subtitle}>Выберите длительность сессии фокуса</Text>
+      {/* Весь контент в одном View без прокрутки */}
+      <View style={styles.content}>
+        {/* Хедер с логотипом и иконкой настроек */}
+        <View style={styles.header}>
+          <View>
+            <Text style={[styles.logoText, { color: theme.accent }]}>Digital</Text>
+            <Text style={[styles.logoText, { color: theme.accent }]}>Detox</Text>
+          </View>
 
-      {/* Контейнер для кнопок выбора длительности */}
-      <View style={styles.durationContainer}>
-        {/* Кнопка для короткой 5-минутной сессии */}
-        {/* TouchableOpacity это компонент кнопки который реагирует на нажатия */}
-        {/* При нажатии он слегка изменяет прозрачность создавая визуальную обратную связь */}
-        <TouchableOpacity style={styles.durationButton} onPress={() => handleStartSession(5)}>
-          <Text style={styles.durationText}>5 мин</Text>
-          <Text style={styles.durationHint}>Быстрый фокус</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.settingsButton,
+              { backgroundColor: isDark ? 'rgba(61, 65, 83, 0.6)' : 'rgba(197, 197, 208, 0.5)' },
+            ]}
+            onPress={toggleTheme}
+            activeOpacity={0.7}
+          >
+            <Ionicons name='settings-outline' size={24} color={isDark ? '#FFFFFF' : '#3D4153'} />
+          </TouchableOpacity>
+        </View>
 
-        {/* Кнопка для стандартной 25-минутной сессии по технике Помодоро */}
-        {/* Эта кнопка имеет дополнительный стиль primary чтобы выделить её как рекомендуемую */}
-        <TouchableOpacity style={[styles.durationButton, styles.primaryButton]} onPress={() => handleStartSession(25)}>
-          <Text style={[styles.durationText, styles.primaryText]}>25 мин</Text>
-          <Text style={[styles.durationHint, styles.primaryText]}>Помодоро</Text>
-        </TouchableOpacity>
+        {/* Приветственный заголовок */}
+        <View style={styles.greetingSection}>
+          <Text style={[styles.greetingTitle, { color: theme.textPrimary }]}>Готовы{'\n'}сфокусироваться?</Text>
 
-        {/* Кнопка для длинной 50-минутной сессии глубокой работы */}
-        <TouchableOpacity style={styles.durationButton} onPress={() => handleStartSession(50)}>
-          <Text style={styles.durationText}>50 мин</Text>
-          <Text style={styles.durationHint}>Глубокая работа</Text>
+          <Text style={[styles.greetingSubtitle, { color: theme.textSecondary }]}>
+            Выберите длительность сессии и{'\n'}начните растить свое дерево.
+          </Text>
+        </View>
+
+        {/* Карточка статистики */}
+        <View style={[styles.statsCard, { backgroundColor: theme.cardBackground }]}>
+          <Text style={[styles.statsTitle, { color: isDark ? '#FFFFFF' : '#3D4153' }]}>За эту неделю:</Text>
+
+          <View style={styles.statsRow}>
+            <Text style={[styles.statsLabel, { color: isDark ? '#FFFFFF' : '#3D4153' }]}>Количество сессий:</Text>
+            <Text style={[styles.statsValue, { color: isDark ? '#FFFFFF' : '#3D4153' }]}>{weeklyStats.sessions}</Text>
+          </View>
+
+          <View style={styles.statsRow}>
+            <Text style={[styles.statsLabel, { color: isDark ? '#FFFFFF' : '#3D4153' }]}>Общее время фокуса:</Text>
+            <Text style={[styles.statsValue, { color: isDark ? '#FFFFFF' : '#3D4153' }]}>{weeklyStats.totalTime}</Text>
+          </View>
+        </View>
+
+        {/* Кнопки выбора длительности */}
+        <View style={styles.durationContainer}>
+          <DurationButton
+            minutes={15}
+            icon='pulse'
+            theme={theme}
+            isDark={isDark}
+            onPress={() => handleStartSession(15)}
+          />
+
+          <DurationButton
+            minutes={25}
+            icon='book-outline'
+            theme={theme}
+            isDark={isDark}
+            isAccent={true}
+            onPress={() => handleStartSession(25)}
+          />
+
+          <DurationButton
+            minutes={50}
+            icon='battery-charging-outline'
+            theme={theme}
+            isDark={isDark}
+            onPress={() => handleStartSession(50)}
+          />
+        </View>
+
+        {/* Кнопка CUSTOM */}
+        <TouchableOpacity
+          style={[
+            styles.customButton,
+            {
+              borderColor: isDark ? theme.accent : '#9C27B0',
+              backgroundColor: 'transparent',
+            },
+          ]}
+          onPress={() => {
+            // TODO: Открыть диалог выбора кастомной длительности
+            console.log('Custom duration');
+          }}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.customButtonText, { color: theme.textPrimary }]}>CUSTOM</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Показываем текущий статус сессии для отладки */}
-      {/* В финальной версии это можно убрать, но пока это помогает видеть что происходит */}
-      <Text style={styles.statusText}>Статус: {sessionStatus}</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
-// Создаем объект стилей используя StyleSheet.create
-// StyleSheet.create оптимизирует стили для лучшей производительности
+// Компонент кнопки выбора длительности
+const DurationButton = ({ minutes, icon, theme, isDark, isAccent = false, onPress }) => {
+  const buttonBg = isAccent ? theme.accent : isDark ? 'rgba(61, 65, 83, 0.6)' : 'rgba(197, 197, 208, 0.6)';
+
+  const textColor = isAccent ? '#FFFFFF' : theme.textPrimary;
+  const iconColor = isAccent ? '#FFFFFF' : theme.accent;
+
+  return (
+    <TouchableOpacity
+      style={[styles.durationButton, { backgroundColor: buttonBg }]}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
+      <Ionicons name={icon} size={28} color={iconColor} />
+      <Text style={[styles.durationText, { color: textColor }]}>{minutes} min</Text>
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: spacing.lg,
+    justifyContent: 'space-between',
+    paddingBottom: spacing.md,
+  },
+
+  // Хедер
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: spacing.xs,
+  },
+  logoText: {
+    fontSize: 24,
+    fontWeight: '800',
+    lineHeight: 26,
+  },
+  settingsButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    // padding добавляет внутренние отступы со всех сторон
-    padding: 20,
   },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#2C3E50',
-    marginBottom: 12,
-    // textAlign center выравнивает текст по центру по горизонтали
+
+  // Приветствие
+  greetingSection: {
+    alignItems: 'center',
+    marginTop: -spacing.lg,
+  },
+  greetingTitle: {
+    fontSize: 40,
+    fontWeight: '700',
     textAlign: 'center',
+    marginBottom: spacing.md,
+    lineHeight: 48,
   },
-  subtitle: {
+  greetingSubtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+
+  // Карточка статистики
+  statsCard: {
+    borderRadius: 20,
+    padding: spacing.lg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  statsTitle: {
     fontSize: 18,
-    color: '#7F8C8D',
-    marginBottom: 40,
-    textAlign: 'center',
+    fontWeight: '600',
+    marginBottom: spacing.md,
   },
-  durationContainer: {
-    // flexDirection row размещает дочерние элементы горизонтально в ряд
+  statsRow: {
     flexDirection: 'row',
-    // justifyContent space-around распределяет элементы равномерно с пространством вокруг
-    justifyContent: 'space-around',
-    // width 100% означает что контейнер займет всю доступную ширину
-    width: '100%',
-    marginBottom: 30,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.xs,
+  },
+  statsLabel: {
+    fontSize: 15,
+    fontWeight: '400',
+  },
+  statsValue: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+
+  // Кнопки длительности
+  durationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.xs,
   },
   durationButton: {
-    // Кнопка имеет фиксированную ширину и высоту
-    width: 100,
-    height: 100,
-    // backgroundColor это цвет фона кнопки
-    backgroundColor: '#ECF0F1',
-    // borderRadius скругляет углы создавая круглую кнопку
-    borderRadius: 50,
+    width: '30%',
+    aspectRatio: 0.75,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    // elevation добавляет тень на Android создавая эффект приподнятости
-    elevation: 3,
-    // shadowColor shadowOffset shadowOpacity и shadowRadius создают тень на iOS
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  primaryButton: {
-    // Основная кнопка выделена синим цветом чтобы привлечь внимание
-    backgroundColor: '#3498DB',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
   },
   durationText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2C3E50',
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: spacing.xs,
   },
-  primaryText: {
-    // Текст на основной кнопке белый для контраста с синим фоном
-    color: '#FFFFFF',
+
+  // Кнопка CUSTOM
+  customButton: {
+    height: 54,
+    borderRadius: 16,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  durationHint: {
-    fontSize: 12,
-    color: '#7F8C8D',
-    marginTop: 4,
-  },
-  statusText: {
-    fontSize: 14,
-    color: '#95A5A6',
-    marginTop: 20,
+  customButtonText: {
+    fontSize: 17,
+    fontWeight: '700',
+    letterSpacing: 1.5,
   },
 });
 
-// Экспортируем компонент чтобы его можно было импортировать в других файлах
 export default HomeScreen;

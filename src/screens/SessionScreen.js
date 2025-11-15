@@ -3,28 +3,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSessionContext } from '../contexts/SessionContext';
 
 const SessionScreen = () => {
-  // Получаем все необходимые данные и методы из хука
   const { sessionStatus, remainingTime, pauseSession, resumeSession, endSession } = useSessionContext();
 
-  // Вспомогательная функция для форматирования секунд в красивый вид минут и секунд
-  // Например 125 секунд превращается в строку "2:05"
   const formatTime = (seconds) => {
-    // Math.floor округляет число вниз до целого удаляя дробную часть
-    // Делим секунды на 60 чтобы получить количество полных минут
     const mins = Math.floor(seconds / 60);
-
-    // Оператор % это остаток от деления он дает нам секунды которые не вошли в полные минуты
     const secs = seconds % 60;
 
-    // padStart это метод строки который добавляет символы в начало пока длина не станет нужной
-    // Мы используем его чтобы секунды всегда отображались двумя цифрами например 05 вместо 5
-    // toString конвертирует число в строку чтобы мы могли применить padStart
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Функция которая определяет какой текст и цвет показывать в зависимости от статуса
   const getStatusInfo = () => {
-    // В зависимости от текущего статуса сессии возвращаем разные объекты с информацией
     switch (sessionStatus) {
       case 'active':
         return {
@@ -49,7 +37,6 @@ const SessionScreen = () => {
     }
   };
 
-  // Получаем информацию о текущем статусе
   const statusInfo = getStatusInfo();
 
   return (

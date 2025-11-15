@@ -40,16 +40,11 @@ const AppNavigator = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            // Выбираем иконки на основе названия маршрута
             if (route.name === 'Home') {
-              // Для главной используем иконку домика
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Session') {
-              // Для сессии используем иконку времени/часов
               iconName = focused ? 'time' : 'time-outline';
             } else if (route.name === 'Stats') {
-              // Для статистики используем иконку пульса/активности
-              // Варианты: 'pulse', 'stats-chart', 'analytics'
               iconName = focused ? 'pulse' : 'pulse-outline';
             }
 
