@@ -1,5 +1,4 @@
 // src/constants/colors.js
-
 export const lightTheme = {
   // Основные цвета фона
   background: '#E8E5F2', // Светло-сиреневый фон

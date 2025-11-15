@@ -1,8 +1,5 @@
 // src/contexts/SessionContext.js
 
-// Импортируем React и необходимые хуки
-// createContext - функция для создания нового контекста
-// useContext - хук для чтения значения из контекста
 import { createContext, useContext } from 'react';
 
 // Импортируем наш хук управления сессиями

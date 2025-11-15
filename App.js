@@ -1,5 +1,4 @@
 // DigitalDetoxBuddy/App.js
-
 import { SessionProvider } from './src/contexts/SessionContext';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 import AppNavigator from './src/navigation/AppNavigator';

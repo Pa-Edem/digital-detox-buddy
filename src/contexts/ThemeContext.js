@@ -1,5 +1,4 @@
 // src/contexts/ThemeContext.js
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { darkTheme, lightTheme } from '../constants/colors';

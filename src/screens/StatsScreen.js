@@ -1,4 +1,5 @@
 // src\screens\StatsScreen.js
+
 import { StyleSheet, Text, View } from 'react-native';
 
 const StatsScreen = () => {
