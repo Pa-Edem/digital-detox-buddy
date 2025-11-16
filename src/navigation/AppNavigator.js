@@ -20,16 +20,16 @@ const AppNavigator = () => {
           headerShown: false,
 
           tabBarStyle: {
-            backgroundColor: theme.background,
+            backgroundColor: theme.bgEnd,
             borderTopWidth: 0,
             elevation: 0,
-            height: 80,
-            paddingBottom: 10,
-            paddingTop: 10,
+            height: 70,
+            paddingBottom: 8,
+            paddingTop: 0,
           },
 
-          tabBarActiveTintColor: theme.navActive,
-          tabBarInactiveTintColor: theme.navInactive,
+          tabBarActiveTintColor: theme.pink,
+          tabBarInactiveTintColor: theme.nav,
 
           tabBarLabelStyle: {
             fontSize: 12,

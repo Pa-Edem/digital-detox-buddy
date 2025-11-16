@@ -1,9 +1,5 @@
 // src/constants/spacing.js
 
-/**
- * Константы для отступов и размеров
- * Используются по всему приложению для консистентности
- */
 export const spacing = {
   xs: 4,
   sm: 8,
@@ -11,32 +7,16 @@ export const spacing = {
   lg: 24,
   xl: 32,
   xxl: 48,
+  xxxl: 60,
 };
 
-export const borderRadius = {
+export const radius = {
   sm: 8,
   md: 12,
   lg: 16,
-  xl: 24,
+  xl: 20,
+  xxl: 24,
   round: 9999, // Для круглых элементов
-};
-
-export const fontSize = {
-  xs: 12,
-  sm: 14,
-  md: 16,
-  lg: 20,
-  xl: 24,
-  xxl: 32,
-  xxxl: 48,
-};
-
-export const fontWeight = {
-  regular: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-  extrabold: '800',
 };
 
 export const iconSize = {
