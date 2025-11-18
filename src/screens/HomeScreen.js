@@ -37,7 +37,13 @@ const HomeScreen = ({ navigation }) => {
           {/* Хедер с логотипом и иконкой настроек */}
           <View style={styles.header}>
             {/* SVG Логотип с адаптивными цветами */}
-            <Logo width={72} height={36} primaryColor={theme.nav} accentColor={theme.pink} />
+            <Logo
+              width={48}
+              height={48}
+              primaryColor={theme.nav}
+              lockColor={commonColors.fox}
+              plantColor={theme.accent}
+            />
 
             <TouchableOpacity style={[styles.settingsButton]} onPress={toggleTheme} activeOpacity={0.7}>
               <Ionicons name='settings-outline' size={24} color={theme.nav} />
@@ -109,14 +115,14 @@ const HomeScreen = ({ navigation }) => {
 
 // Компонент кнопки выбора длительности
 const DurationButton = ({ minutes, icon, theme, isAccent = false, onPress }) => {
-  const gradientColors = [theme.bgStartTime, theme.bgEndTime];
+  const gradientColors = isAccent ? [theme.bgStartStat, theme.bgEndStat] : [theme.bgStartTime, theme.bgEndTime];
 
-  const textColor = isAccent ? theme.pink : theme.text;
-  const iconColor = isAccent ? theme.pink : theme.text;
+  const textColor = isAccent ? theme.accent : theme.text;
+  const iconColor = isAccent ? theme.accent : theme.text;
 
   return (
     <TouchableOpacity style={styles.durationButtonContainer} onPress={onPress} activeOpacity={0.7}>
-      <LinearGradient colors={gradientColors} style={styles.durationButton}>
+      <LinearGradient colors={gradientColors} borderColor={theme.border} style={styles.durationButton}>
         <Ionicons name={icon} size={28} color={iconColor} />
         <Text style={[styles.durationText, { color: textColor }]}>{minutes} min</Text>
       </LinearGradient>
@@ -215,6 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
     paddingVertical: spacing.md,
     shadowColor: commonColors.shadow,
     shadowOffset: { width: 1, height: 2 },
@@ -232,7 +239,6 @@ const styles = StyleSheet.create({
     height: 54,
     borderRadius: radius.lg,
     borderWidth: 1,
-    borderColor: commonColors.border,
     shadowColor: commonColors.shadow,
     shadowOffset: { width: 1, height: 2 },
     shadowRadius: 4,

@@ -1,50 +1,55 @@
 // src/constants/colors.js
 export const lightTheme = {
   // цвета текста
-  title: '#1A1A1A', // Очень-темный (заголовок, статистика)
-  text: '#262626', // Темный (подзаголовок, иконки и текст на кнопках выбора)
-  nav: '#463960', // Темно-сиреневый (иконки навигации)
-  pink: '#BF40BF', // Ярко-розовый (выделения)
+  title: '#1A1A1A',
+  text: '#333333',
+  nav: '#414758',
+  accent: '#1B7E5D',
 
   // Цвета фона
-  bgStart: '#C6CFEC',
-  bgEnd: '#E4D0EE',
+  bgStart: '#D1D5E0',
+  bgEnd: '#E3E4E8',
 
   // Цвета фона карточка статистики
-  bgStartStat: '#ECC6EC',
-  bgEndStat: '#D9D9D9',
+  bgStartStat: '#E6FFF6',
+  bgEndStat: '#B3E6D5',
 
   // Цвета фона кнопок выбора времени
-  bgStartTime: '#A0A9C5',
-  bgEndTime: '#BAC3DE',
+  bgStartTime: '#EFF1F5',
+  bgEndTime: '#CFD4E2',
 
   // Цвета фона кнопки Custom
-  bgStartCust: '#CFB0CF',
-  bgEndCust: '#F4F0F4',
-};
+  bgStartCust: '#EFF1F5',
+  bgEndCust: '#CFD4E2',
 
+  // Others
+  border: '#989FB3',
+};
 export const darkTheme = {
   // цвета текста
-  title: '#FFFFFF', // Белый (заголовок, статистика)
-  text: '#CCC2DC', // Светлый (подзаголовок, иконки и текст на кнопках выбора)
-  nav: '#CCC2DC', // Светлый (иконки навигации)
-  pink: '#BF40BF', // Ярко-розовый (выделения)
+  title: '#E6E6E6',
+  text: '#CCCCCC',
+  nav: '#AFB7CF',
+  accent: '#00CC88',
 
   // Цвета фона
-  bgStart: '#0D1326',
-  bgEnd: '#241934',
+  bgStart: '#21232C',
+  bgEnd: '#393D46',
 
   // Цвета фона карточка статистики
-  bgStartStat: '#603960',
-  bgEndStat: '#333333',
+  bgStartStat: '#4095BF',
+  bgEndStat: '#0D1E26',
 
   // Цвета фона кнопок выбора времени
-  bgStartTime: '#434E6F',
-  bgEndTime: '#333333',
+  bgStartTime: '#4D4D4D',
+  bgEndTime: '#14171F',
 
   // Цвета фона кнопки Custom
-  bgStartCust: '#4D334D',
-  bgEndCust: '#1D2130',
+  bgStartCust: '#4D4D4D',
+  bgEndCust: '#14171F',
+
+  // Others
+  border: '#21232C',
 };
 
 export const commonColors = {
@@ -55,6 +60,6 @@ export const commonColors = {
   success: '#4CAF50',
   warning: '#FF9800',
   info: '#2196F3',
-  border: '#60709F',
+  fox: '#E86D4C',
   shadow: 'rgba(0, 0, 0, 0.5)',
 };

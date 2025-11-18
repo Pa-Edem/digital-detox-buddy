@@ -56,6 +56,7 @@ DigitalDetoxBuddy
 ├─ assets
 │  ├─ fonts
 │  ├─ icons
+│  │  └─ Logo.js
 │  ├─ images
 │  └─ sounds
 ├─ package-lock.json
@@ -63,8 +64,16 @@ DigitalDetoxBuddy
 ├─ README.md
 └─ src
    ├─ components
+   │  └─ CircularProgress.js
    ├─ constants
+   │  ├─ colors.js
+   │  ├─ fonts.js
+   │  └─ spacing.js
+   ├─ contexts
+   │  ├─ SessionContext.js
+   │  └─ ThemeContext.js
    ├─ hooks
+   │  └─ useSession.js
    ├─ modules
    ├─ navigation
    │  └─ AppNavigator.js

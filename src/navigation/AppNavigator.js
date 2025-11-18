@@ -23,12 +23,12 @@ const AppNavigator = () => {
             backgroundColor: theme.bgEnd,
             borderTopWidth: 0,
             elevation: 0,
-            height: 70,
+            height: 80,
             paddingBottom: 8,
             paddingTop: 0,
           },
 
-          tabBarActiveTintColor: theme.pink,
+          tabBarActiveTintColor: theme.accent,
           tabBarInactiveTintColor: theme.nav,
 
           tabBarLabelStyle: {
